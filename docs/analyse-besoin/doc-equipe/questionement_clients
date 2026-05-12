@@ -1,0 +1,69 @@
+# Questions à valider avec le client
+
+## Partie 1 - Fonctionnement général du jeu
+
+### Joueurs
+
+1. Quel est le nombre maximum de joueurs ?
+2. Le nombre maximum de joueurs humains est-il également limité à 6 ?
+3. Plusieurs joueurs humains peuvent-ils jouer simultanément sur la même partie ?
+
+### Gameplay
+
+4. Souhaitez-vous intégrer un système de points ?
+5. Le jeu doit-il être une reproduction fidèle du vrai Cluedo ou certaines mécaniques peuvent-elles être modifiées ?
+6. Souhaitez-vous intégrer un bloc-notes pour aider les joueurs à suivre leurs déductions ?
+
+   * Décision actuelle : oui, avec possibilité de le masquer/afficher.
+
+### Gestion des joueurs
+
+7. Que se passe-t-il lorsqu’un joueur est éliminé ?
+
+   * Décision actuelle : le joueur n’est pas totalement retiré de la partie et son tour est simplement passé.
+
+### Cartes et éléments du jeu
+
+8. Combien de cartes doivent être présentes dans le jeu ?
+
+   * Décision actuelle : même nombre que le jeu original.
+9. Combien de suspects doivent être disponibles ?
+
+   * Décision actuelle : même nombre que le jeu original.
+
+### Interface
+
+10. Le plateau doit-il rester entièrement visible à l’écran en permanence ?
+
+* Décision actuelle : oui.
+
+---
+
+# Questions - Deuxième partie
+
+## Déplacements
+
+1. Les déplacements doivent-ils fonctionner exactement comme dans le vrai Cluedo avec un nombre de cases limité par un lancer de dé, ou les déplacements seront-ils libres ?
+
+2. En cas de collision :
+
+   * si un joueur occupe déjà une case,
+   * est-ce que cette case devient bloquante ou non ?
+
+## Plateau et mécanique
+
+3. Peut-on réduire le nombre de pièces présentes sur le plateau ?
+4. Souhaitez-vous intégrer les passages secrets entre certaines pièces ?
+
+## Design
+
+5. Existe-t-il une ou plusieurs couleurs à privilégier pour l’interface ou le plateau ?
+
+---
+
+## Notes complémentaires
+
+* Le jeu semble partir sur une base très proche du vrai Cluedo.
+* Les mécaniques exactes de déplacement et de gestion des collisions restent à confirmer.
+* L’ergonomie du plateau et la lisibilité doivent être prioritaires.
+
