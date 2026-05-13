@@ -37,4 +37,6 @@ typedef struct {
 
 }Game;
 
+void initialiserCartes();
+
 #endif
