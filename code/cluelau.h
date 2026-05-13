@@ -41,5 +41,6 @@ typedef struct {
 void initialiserCartes();
 void combinaisonSecrete(Game *games);
 void creerDeck(Game *games);
+void melangerCartes(Game *games);
 
 #endif

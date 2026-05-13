@@ -70,6 +70,9 @@ void combinaisonSecrete(Game *games){
 
 
 void creerDeck(Game *games){
+    if(games == NULL){
+        return;
+    }
     
     for(int i = 0; i < 6; i++){
         games->deck[i] = suspects[i];
@@ -79,6 +82,21 @@ void creerDeck(Game *games){
     }
     for(int i = 12; i< 18; i++){
         games->deck[i] = pieces[i - 12];
+    }
+
+}
+
+void melangerCartes(Game *games){
+    if( games == NULL){
+        return;
+    }
+
+    for(int i = 0; i < 18; i++){
+        int idx = rand() % 18;
+        Card temp = games->deck[i];
+        games->deck[i] = games->deck[idx];
+        games->deck[idx] = temp;
+
     }
 
 }
