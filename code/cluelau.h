@@ -34,10 +34,12 @@ typedef struct {
     Card solution[3];
     Room rooms[6];
     int joueurCourant;
+    Card deck[18];
 
 }Game;
 
 void initialiserCartes();
 void combinaisonSecrete(Game *games);
+void creerDeck(Game *games);
 
 #endif

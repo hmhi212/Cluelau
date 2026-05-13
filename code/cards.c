@@ -67,3 +67,18 @@ void combinaisonSecrete(Game *games){
     games->solution[2] = pieces[p];
     
 }
+
+
+void creerDeck(Game *games){
+    
+    for(int i = 0; i < 6; i++){
+        games->deck[i] = suspects[i];
+    }
+    for(int i = 6; i < 12; i++ ){
+        games->deck[i] = armes[i - 6 ];
+    }
+    for(int i = 12; i< 18; i++){
+        games->deck[i] = pieces[i - 12];
+    }
+
+}
