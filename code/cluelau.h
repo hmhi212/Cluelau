@@ -38,5 +38,6 @@ typedef struct {
 }Game;
 
 void initialiserCartes();
+void combinaisonSecrete(Game *games);
 
 #endif

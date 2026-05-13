@@ -49,4 +49,21 @@ void initialiserCartes(){
     pieces[4].type = 2;
     strcpy(pieces[5].nom, "Hall");
     pieces[5].type = 2;
+
+}
+
+
+void combinaisonSecrete(Game *games){
+    if (games == NULL){
+        return;
+    }
+
+    int s = rand() % 6 ;
+    int a = rand() % 6;
+    int p = rand() % 6;
+
+    games->solution[0] = suspects[s];
+    games->solution[1] = armes[a];
+    games->solution[2] = pieces[p];
+    
 }
