@@ -219,3 +219,19 @@ int accusationFinale(Game *games, Card suspect, Card arme, Card piece){
 
     return 0;
 }
+
+
+int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme, Card piece){
+    if(games == NULL || joueur == NULL){
+        return 0;
+    }
+
+    if(accusationFinale(games, suspect, arme, piece) == 1){
+        return 1;
+    }
+
+    else{
+        joueur->elimine = 1;
+        return 0;
+    }
+}

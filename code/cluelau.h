@@ -48,5 +48,6 @@ int joueurPossedeCarte(Player *joueur, Card carte);
 Player * trouverJoueurCarte(Game * games, int joueurCourant, Card suspect, Card arme, Card piece);
 Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece);
 int accusationFinale(Game *games, Card suspect, Card arme, Card piece);
+int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme, Card piece);
 
 #endif
