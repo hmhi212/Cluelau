@@ -42,5 +42,7 @@ void initialiserCartes();
 void combinaisonSecrete(Game *games);
 void creerDeck(Game *games);
 void melangerCartes(Game *games);
+int estDanssolution(Game *games, Card carte);
+void distribuerCartes(Game *games);
 
 #endif

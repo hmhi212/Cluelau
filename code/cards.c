@@ -100,3 +100,44 @@ void melangerCartes(Game *games){
     }
 
 }
+
+int estDanssolution(Game *games, Card carte){
+    if(games == NULL){
+        return 0;
+    }
+
+    for(int i = 0; i < 3; i++){
+        if(strcmp(carte.nom, games->solution[i].nom) == 0){ //comparer les chaines de caracteres si elles sont identiques avec strcmp 
+            return 1;
+        }
+    }
+
+    return 0;
+    
+}
+
+void distribuerCartes(Game *games){
+    if(games == NULL){
+        return;
+    }
+
+    if(games->nbJoueurs <= 0){ // verifie qu'on ne divise pas par 0
+        return;
+    }
+
+    for(int i = 0; i < games->nbJoueurs; i++){
+        games->joueurs[i].nbCartes = 0;  // on remets les cartes a 0 pour chaque joueurs
+    }
+
+    int joueurActuel = 0;
+
+    for(int i = 0; i < 18; i++){
+
+        if(estDanssolution(games, games->deck[i]) == 0){ // ignore les cartes de la combinaison secrete
+            Player *joueur = &games->joueurs[joueurActuel]; // pointeur vers le joueur actuel
+            joueur->cartes[joueur->nbCartes] = games->deck[i]; // ajoute la carte du deck dans les cartes du joueur 
+            joueur->nbCartes ++; // augmente les cartes du joeur
+            joueurActuel = (joueurActuel + 1) % games->nbJoueurs; // passe au joueur suivant
+        }
+    }
+}
