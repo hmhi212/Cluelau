@@ -141,3 +141,81 @@ void distribuerCartes(Game *games){
         }
     }
 }
+
+int joueurPossedeCarte(Player *joueur, Card carte){
+    if(joueur == NULL){
+        return 0;
+    }
+
+    for(int i = 0; i < joueur->nbCartes; i++){
+        if(strcmp(joueur->cartes[i].nom, carte.nom) == 0){ // comparer les cartes du joeurs avec celle rechercer
+            return 1;
+        }
+    }
+
+    return 0;
+
+}
+
+Player * trouverJoueurCarte(Game * games, int joueurCourant, Card suspect, Card arme, Card piece){ // joueurCourant est celui qui fais l'hypothese
+    if(games == NULL ){
+        return NULL;
+    }
+
+    for(int i = 0; i < games->nbJoueurs; i++){
+
+        if(i == joueurCourant){
+            continue; // pour ne pas tester le joueur qui fais l'hypothese
+        }
+        if(joueurPossedeCarte(&games->joueurs[i], suspect) == 1){
+            return &games->joueurs[i];
+        }
+
+        if(joueurPossedeCarte(&games->joueurs[i], arme) == 1){
+            return &games->joueurs[i];
+        }
+
+        if(joueurPossedeCarte(&games->joueurs[i], piece) == 1){
+            return &games->joueurs[i];
+        }
+    }
+
+    return NULL;
+
+}
+
+
+Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece){
+
+    if(joueur == NULL){
+        return NULL;
+    }
+
+    for(int i = 0; i < joueur->nbCartes; i++){
+        if(strcmp(joueur->cartes[i].nom, suspect.nom) == 0){
+            return &joueur->cartes[i];
+        }
+        
+        if(strcmp(joueur->cartes[i].nom, arme.nom) == 0){
+            return &joueur->cartes[i];
+        }
+
+        if(strcmp(joueur->cartes[i].nom, piece.nom) == 0){
+            return &joueur->cartes[i];
+        }
+    }
+
+    return NULL;
+}
+
+int accusationFinale(Game *games, Card suspect, Card arme, Card piece){
+    if(games == NULL){
+        return 0;
+    }
+
+    if(strcmp(games->solution[0].nom, suspect.nom) == 0 && strcmp(games->solution[1].nom, arme.nom) == 0 && strcmp(games->solution[2].nom, piece.nom) == 0){
+        return 1;
+    }
+
+    return 0;
+}

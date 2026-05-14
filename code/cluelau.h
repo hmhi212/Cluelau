@@ -44,5 +44,9 @@ void creerDeck(Game *games);
 void melangerCartes(Game *games);
 int estDanssolution(Game *games, Card carte);
 void distribuerCartes(Game *games);
+int joueurPossedeCarte(Player *joueur, Card carte);
+Player * trouverJoueurCarte(Game * games, int joueurCourant, Card suspect, Card arme, Card piece);
+Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece);
+int accusationFinale(Game *games, Card suspect, Card arme, Card piece);
 
 #endif
