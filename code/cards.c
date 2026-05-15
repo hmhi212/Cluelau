@@ -283,7 +283,19 @@ void initialiserPartie(Game *games){
 }
 
 
+int tousJoueursElimines(Game *games){
+    if(games == NULL){
+        return 0;
+    }
 
+    for(int i = 0; i < games->nbJoueurs; i++){
+        if(games->joueurs[i].elimine == 0){
+            return 0;
+        }
+        
+    }
+    return 1;
+}
 
 
 
