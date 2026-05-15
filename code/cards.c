@@ -235,3 +235,67 @@ int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme
         return 0;
     }
 }
+
+Card * faireHypothese(Game *games, int joueurCourant, Card suspect, Card arme, Card piece){
+    if(games == NULL){
+        return NULL;
+    }
+
+    Player * joueurTrouve;
+
+    joueurTrouve = trouverJoueurCarte(games, joueurCourant, suspect, arme, piece);
+
+    if(joueurTrouve == NULL){
+        return NULL; // personne n'a les cartes
+    }
+
+    else{
+        Card *carteRevelee;
+        carteRevelee = revelerCarte(joueurTrouve, suspect, arme, piece);
+        return carteRevelee;
+    }
+}   
+
+
+void joueurSuivant(Game *games){
+    if(games == NULL){
+        return 0;
+    }
+
+    games->joueurCourant = (games->joueurCourant + 1) % games->nbJoueurs; // on a l'int du joueur courant on fait + 1 pour avoir le suivant mais % nb de joueur comme ça quand on arrive au dernier joueur on repasse a 0, on a comme une boucle 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*void boucleJeu(Game * games){
+    if(games == NULL){
+        return ;
+    }
+
+    int partieFinie = 0;
+
+    while(partieFinie == 0){
+        Player * joueur = &games->joueurs[games->joueurCourant];
+
+        if(joueur->elimine == 1){
+            continue;
+        }
+
+        // joue un tour : hypothese ou accusation 
+
+
+
+    }
+}*/
+
