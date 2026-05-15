@@ -267,6 +267,22 @@ void joueurSuivant(Game *games){
 }
 
 
+void initialiserPartie(Game *games){
+    if(games == NULL){
+        return;
+    }
+
+    initialiserCartes();
+    combinaisonSecrete(games);
+    creerDeck(games);
+    melangerCartes(games);
+    distribuerCartes(games);
+    games->joueurCourant = 0; // on commence par le premier joueur 
+
+
+}
+
+
 
 
 

@@ -66,5 +66,7 @@ void boucleJeu(Game * games);
 Card * faireHypothese(Game * games, int joueurCourant, Card suspects, Card arme, Card piece);
 // passer au joueur suivant
 void joueurSuivant(Game *games); 
+// initialise le début d'une partie 
+void initialiserPartie(Game *games);
 
 #endif
