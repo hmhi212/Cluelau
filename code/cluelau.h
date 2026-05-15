@@ -68,5 +68,7 @@ Card * faireHypothese(Game * games, int joueurCourant, Card suspects, Card arme,
 void joueurSuivant(Game *games); 
 // initialise le début d'une partie 
 void initialiserPartie(Game *games);
+// verifie si tous les joueurs sont elemines, 1 = tous elimines et 0 = encore actif donc partie continue
+int tousJoueursElimines(Game *games); 
 
 #endif
