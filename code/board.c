@@ -37,7 +37,7 @@ void creerPlateau() {
     printf("|               |             |                   |                             |\n");
     printf("|               |             |                   |                             |\n");
     printf("|-------------------------------------------------------------------------------|\n");
-    
+
     return;
 }
 
@@ -51,4 +51,15 @@ int lancerDes() {
     printf("Total deplacement : %d\n", total);
 
     return total;
+}
+
+void initialiserPositions(Game *games) {
+    if (games==NULL){
+        return;
+    }
+
+    for (int i=0; i<games->nbJoueurs; i++){
+        games->joueurs[i].x=2+i;
+        games->joueurs[i].y=2;
+    }
 }

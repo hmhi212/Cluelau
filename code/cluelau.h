@@ -75,5 +75,8 @@ int tousJoueursElimines(Game *games);
 void creerPlateau();
 // lance les dés :
 int lancerDes();
+//définit les positions initiales
+void initialiserPositions(Game *games);
+
 
 #endif

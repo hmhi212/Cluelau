@@ -31,10 +31,23 @@ int main(){
     printf("%s\n", games.deck[i].nom);
     }
 
-
-
     int deplacement = lancerDes();
     printf("Le joueur peut avancer de %d cases.\n", deplacement);
+
+    games.nbJoueurs = 4;
+    initialiserPositions(&games);
+
+
+    """TEST POSITIONS INITIALES""";
+
+    //for(int i = 0; i < games.nbJoueurs; i++){
+
+    //printf("Joueur %d : x=%d y=%d\n",
+    //i,
+    //games.joueurs[i].x,
+    //games.joueurs[i].y);
+
+    //};
 
     return 0;
 }
