@@ -73,5 +73,7 @@ int tousJoueursElimines(Game *games);
 
 //Affiche le plateau
 void creerPlateau();
+// lance les dés :
+int lancerDes();
 
 #endif

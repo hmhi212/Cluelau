@@ -32,5 +32,9 @@ int main(){
     }
 
 
+
+    int deplacement = lancerDes();
+    printf("Le joueur peut avancer de %d cases.\n", deplacement);
+
     return 0;
 }
