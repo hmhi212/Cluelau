@@ -5,6 +5,7 @@
 
 
 int main(){
+    creerPlateau();
     srand(time(NULL));
 
     Game games;

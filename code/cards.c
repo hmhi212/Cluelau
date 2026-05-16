@@ -259,7 +259,7 @@ Card * faireHypothese(Game *games, int joueurCourant, Card suspect, Card arme, C
 
 void joueurSuivant(Game *games){
     if(games == NULL){
-        return 0;
+        return;
     }
 
     games->joueurCourant = (games->joueurCourant + 1) % games->nbJoueurs; // on a l'int du joueur courant on fait + 1 pour avoir le suivant mais % nb de joueur comme ça quand on arrive au dernier joueur on repasse a 0, on a comme une boucle 

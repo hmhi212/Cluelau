@@ -71,4 +71,7 @@ void initialiserPartie(Game *games);
 // verifie si tous les joueurs sont elemines, 1 = tous elimines et 0 = encore actif donc partie continue
 int tousJoueursElimines(Game *games); 
 
+//Affiche le plateau
+void creerPlateau();
+
 #endif
