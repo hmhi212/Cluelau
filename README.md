@@ -142,9 +142,7 @@ Lancer le projet :
 npm run dev
 ```
 
-Ou alors votre commande perso obscure bricolée à 2h du matin après avoir cassé trois dépendances. L’écosystème JavaScript continue son incroyable mission de transformer chaque développeur en archéologue numérique.
 
----
 
 # Avancement du projet
 
