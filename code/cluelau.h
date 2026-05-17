@@ -71,12 +71,18 @@ void initialiserPartie(Game *games);
 // verifie si tous les joueurs sont elemines, 1 = tous elimines et 0 = encore actif donc partie continue
 int tousJoueursElimines(Game *games); 
 
-//Affiche le plateau
-void creerPlateau();
+//Créé et affiche le plateau
+void creerPlateau(char plateau[34][82]);
+void afficherPlateau(char plateau[34][82]);
 // lance les dés :
 int lancerDes();
 //définit les positions initiales
 void initialiserPositions(Game *games);
-
+//affiche les positions dans le terminal (test)
+//void afficherPositionsJoueurs(Game *games);
+//affiche les pions sur le plateau (positions joueurs);
+void placerJoueurs(Game *games, char plateau[34][82]);
+//deplacer joueur
+void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int deplacement);
 
 #endif

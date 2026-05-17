@@ -5,10 +5,20 @@
 
 
 int main(){
-    creerPlateau();
+
     srand(time(NULL));
 
+    char plateau[34][82];
+    creerPlateau(plateau);
+
     Game games;
+
+    games.nbJoueurs = 6;
+    initialiserPositions(&games);
+    placerJoueurs(&games, plateau);
+    afficherPlateau(plateau);
+
+
     initialiserCartes();
     combinaisonSecrete(&games);
 
@@ -32,10 +42,7 @@ int main(){
     }
 
     int deplacement = lancerDes();
-    printf("Le joueur peut avancer de %d cases.\n", deplacement);
-
-    games.nbJoueurs = 4;
-    initialiserPositions(&games);
+    deplacerJoueur(&games, plateau, 0, deplacement);
 
 
     """TEST POSITIONS INITIALES""";
@@ -48,6 +55,8 @@ int main(){
     //games.joueurs[i].y);
 
     //};
+
+    //afficherPositionsJoueurs(&games);
 
     return 0;
 }
