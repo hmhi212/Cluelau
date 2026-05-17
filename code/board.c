@@ -124,29 +124,72 @@ void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int depl
         int ancienX = games->joueurs[joueurIndex].x;
         int ancienY = games->joueurs[joueurIndex].y;
 
+        int nouveauX = ancienX;
+        int nouveauY = ancienY;
+
         if(direction == 'z'){
-            games->joueurs[joueurIndex].y -= 1;
+            nouveauY -= 1;
         }
 
         else if(direction == 's'){
-            games->joueurs[joueurIndex].y += 1;
+            nouveauY += 1;
         }
 
         else if(direction == 'q'){
-            games->joueurs[joueurIndex].x -= 3;
+            nouveauX -= 3;
         }
 
         else if(direction == 'd'){
-            games->joueurs[joueurIndex].x += 3;
+            nouveauX += 3;
         }
 
-        plateau[ancienY][ancienX] = ' ';
+        else{
+            printf("Direction invalide.\n");
+            continue;
+        }
 
-        int nouveauX = games->joueurs[joueurIndex].x;
-        int nouveauY = games->joueurs[joueurIndex].y;
+        if(caseAccessible(plateau, nouveauX, nouveauY) == 1){
 
-        plateau[nouveauY][nouveauX] = '1' + joueurIndex;
+            plateau[ancienY][ancienX] = ' ';
 
-        deplacement--;
+            games->joueurs[joueurIndex].x = nouveauX;
+            games->joueurs[joueurIndex].y = nouveauY;
+
+            plateau[nouveauY][nouveauX] = '1' + joueurIndex;
+
+            deplacement--;
+        }
+
+        else{
+            printf("Deplacement impossible.\n");
+        }
     }
+}
+
+void tourDeplacementJoueurs(Game *games, char plateau[34][82]) {
+    if (games==NULL){
+        return;
+    }
+
+    for (int i=0; i<games->nbJoueurs; i++) {
+
+        printf("\n===== Tour du joueur %d =====\n", i+1);
+
+        int deplacement = lancerDes();
+
+        deplacerJoueur(games, plateau, i, deplacement);
+    }
+}
+
+int caseAccessible(char plateau[34][82], int x, int y) {
+    if (x<0 || x >=81 || y<0 || y>= 34){
+        return 0 ;
+    }
+
+    if (plateau[y][x]=='|' || plateau[y][x]=='-'){
+        return 0;
+
+    }
+
+    return 1;
 }

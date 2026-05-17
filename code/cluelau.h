@@ -84,5 +84,9 @@ void initialiserPositions(Game *games);
 void placerJoueurs(Game *games, char plateau[34][82]);
 //deplacer joueur
 void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int deplacement);
+//tours des joueurs
+void tourDeplacementJoueurs(Game *games, char plateau[34][82]);
+//collision
+int caseAccessible(char plateau[34][82], int x, int y);
 
 #endif

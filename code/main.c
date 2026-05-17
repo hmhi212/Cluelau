@@ -41,8 +41,7 @@ int main(){
     printf("%s\n", games.deck[i].nom);
     }
 
-    int deplacement = lancerDes();
-    deplacerJoueur(&games, plateau, 0, deplacement);
+    tourDeplacementJoueurs(&games, plateau);
 
 
     """TEST POSITIONS INITIALES""";
