@@ -86,6 +86,14 @@ void placerJoueurs(Game *games, char plateau[34][82]);
 void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int deplacement);
 // Gère le tour complet des déplacements des joueurs
 void tourDeplacementJoueurs(Game *games, char plateau[34][82]);
+//collision
+int caseAccessible(char plateau[34][82], int x, int y);
+
+//initialiser les pièces
+void initialiserPieces(Game *games);
+//vérifie si le joueur est dans la pièce
+int joueurDansPiece(Game *games, Player *joueur);
+
 
 
 

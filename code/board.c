@@ -1,6 +1,7 @@
 #include "cluelau.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void creerPlateau(char plateau[34][82]) {
     char modele[34][82] = {
@@ -157,6 +158,13 @@ void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int depl
 
             plateau[nouveauY][nouveauX] = '1' + joueurIndex;
 
+            int pieceIndex = joueurDansPiece(games, &games->joueurs[joueurIndex]);
+
+            if(pieceIndex != -1){
+                printf("Le joueur est dans la piece : %s\n",
+                       games->rooms[pieceIndex].nom);
+            }
+
             deplacement--;
         }
 
@@ -192,4 +200,69 @@ int caseAccessible(char plateau[34][82], int x, int y) {
     }
 
     return 1;
+}
+
+void initialiserPieces (Game *games) {
+    if (games == NULL) {
+        return;
+    }
+
+    strcpy(games->rooms[0].nom, "Cuisine");
+    games->rooms[0].xMin = 1;
+    games->rooms[0].xMax = 20;
+    games->rooms[0].yMin = 1;
+    games->rooms[0].yMax = 8;
+    games->rooms[0].secretRoom = 2;
+
+    strcpy(games->rooms[1].nom, "Salle de bain");
+    games->rooms[1].xMin = 1;
+    games->rooms[1].xMax = 19;
+    games->rooms[1].yMin = 14;
+    games->rooms[1].yMax = 20;
+    games->rooms[1].secretRoom = 3;
+
+    strcpy(games->rooms[2].nom, "Salon");
+    games->rooms[2].xMin = 1;
+    games->rooms[2].xMax = 15;
+    games->rooms[2].yMin = 26;
+    games->rooms[2].yMax = 32;
+    games->rooms[2].secretRoom = 0;
+
+    strcpy(games->rooms[3].nom, "Hall");
+    games->rooms[3].xMin = 31;
+    games->rooms[3].xMax = 51;
+    games->rooms[3].yMin = 25;
+    games->rooms[3].yMax = 32;
+    games->rooms[3].secretRoom = 1;
+
+    strcpy(games->rooms[4].nom, "Bibliotheque");
+    games->rooms[4].xMin = 58;
+    games->rooms[4].xMax = 79;
+    games->rooms[4].yMin = 17;
+    games->rooms[4].yMax = 27;
+    games->rooms[4].secretRoom = 5;
+
+    strcpy(games->rooms[5].nom, "Bureau");
+    games->rooms[5].xMin = 48;
+    games->rooms[5].xMax = 79;
+    games->rooms[5].yMin = 1;
+    games->rooms[5].yMax = 11;
+    games->rooms[5].secretRoom = 4;
+}
+
+int joueurDansPiece(Game *games, Player *joueur) {
+    if(games==NULL || joueur ==NULL){
+        return -1;
+    }
+
+    for (int i=0; i<6; i++){
+        if(joueur->x >= games->rooms[i].xMin &&
+           joueur->x <= games->rooms[i].xMax &&
+           joueur->y >= games->rooms[i].yMin &&
+           joueur->y <= games->rooms[i].yMax){
+
+            return i;
+        }
+    }
+    return -1;
 }
