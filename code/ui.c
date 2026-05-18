@@ -148,3 +148,40 @@ void afficherResultatAccusation(int succes, Card s, Card a, Card p) {
     }
     printf("=================================================\n");
 }
+ Player *choisirJoueurCible(Game *games) {
+    printf("\n--- CIBLE DE L'ENQUETE ---\n");
+    printf("Choisissez le joueur a interroger :\n");
+
+    int choixValides[6];
+    int compteurOptions = 1;
+
+    for (int i = 0; i < games->nbJoueurs; i++) {
+        if (i == games->joueurCourant) {
+            continue;
+        }
+
+        printf("  %d. %s", compteurOptions, games->joueurs[i].nom);
+       
+        if (games->joueurs[i].type == 0) printf(" [HUMAIN]\n");
+        else printf(" [IA]\n");
+
+        choixValides[compteurOptions] = i;
+        compteurOptions++;
+    }
+
+    if (compteurOptions == 1) {
+        printf("Aucun autre joueur disponible.\n");
+        return NULL;
+    }
+
+    printf("Votre choix : ");
+   
+
+    
+    int selection = saisirChoixUI(1, compteurOptions - 1);
+
+   
+    int indexJoueurCible = choixValides[selection];
+
+    return &games->joueurs[indexJoueurCible];
+}
