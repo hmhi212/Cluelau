@@ -1,22 +1,24 @@
 #ifndef CLUELAU_H
 #define CLUELAU_H
 
+// =========================================================================
+// STRUCTURES DE DONNÉES DE BASE (Logique Amal & Louis)
+// =========================================================================
+
 typedef struct {
     char nom[50]; 
     int type; // 0 = suspect, 1 = arme, 2 = piece
+} Card;
 
-}Card;
-
-typedef struct{
+typedef struct {
     char nom[50];
-    int type; // 0 = humain,1 = IA facile ou 2 = IA difficile
+    int type; // 0 = humain, 1 = IA facile ou 2 = IA difficile
     int elimine; // 0 = actif ou 1 = elimine
     int x;
     int y;
-    Card cartes[10]; // cartes du joueurs
+    Card cartes[10]; // cartes du joueur
     int nbCartes;
-
-}Player;
+} Player;
 
 typedef struct {
     char nom[50];
@@ -24,9 +26,8 @@ typedef struct {
     int xMax; 
     int yMin; 
     int yMax; 
-    int secretRoom; // -1 = pas de passage secret, 0 = piece reliee, 1= autre piece reliee
-
-}Room;
+    int secretRoom; // -1 = pas de passage secret, 0 = piece reliee, 1 = autre piece reliee
+} Room;
 
 typedef struct {
     Player joueurs[6];
@@ -35,58 +36,71 @@ typedef struct {
     Room rooms[6];
     int joueurCourant;
     Card deck[18];
+} Game;
 
-}Game;
+// =========================================================================
+// FONCTIONS DE LOGIQUE ET DE CARTES (Amal - cards.c / game.c)
+// =========================================================================
 
-// initialise toutes les cartes du jeu donc supects, armes et pieces
+// Initialise toutes les cartes du jeu donc suspects, armes et pieces
 void initialiserCartes();
-//genere aleatoirement la combinaison secrete
+// Genere aleatoirement la combinaison secrete
 void combinaisonSecrete(Game *games);
-// creer le paquet de cartes
+// Creer le paquet de cartes
 void creerDeck(Game *games);
-// melange aleatoirement le paquet
+// Melange aleatoirement le paquet
 void melangerCartes(Game *games);
-// verifie si une des cartes appartient a la combinaison secrete
+// Verifie si une des cartes appartient a la combinaison secrete
 int estDanssolution(Game *games, Card carte);
-// distribue les carte aux joueurs
+// Distribue les cartes aux joueurs
 void distribuerCartes(Game *games);
-// verifie si un joueur possede une carte
-int joueurPossedeCarte(Player *joueur, Card carte);
-// cherche le premier joueur pouvant repondre a une hypothese
-Player * trouverJoueurCarte(Game * games, int joueurCourant, Card suspect, Card arme, Card piece);
-// revele une carte de l'hypothese
-Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece);
-// verifie si accusation finale est correcte ou pas
+// Verifie si l'accusation finale est correcte ou pas
 int accusationFinale(Game *games, Card suspect, Card arme, Card piece);
-// verifie la victoire ou la defaite d'une accusation
+// Verifie la victoire ou la defaite d'une accusation
 int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme, Card piece);
-// gere le deroulement principale de la partie
-void boucleJeu(Game * games);
-// gere une hypothese et retourne la carte revelee
-Card * faireHypothese(Game * games, int joueurCourant, Card suspects, Card arme, Card piece);
-// passer au joueur suivant
+// Gere le deroulement principal de la partie
+void boucleJeu(Game *games);
+// Gere une hypothese et retourne la carte revelee
+Card *faireHypothese(Game *games, int joueurCourant, Card suspects, Card arme, Card piece);
+// Passer au joueur suivant
 void joueurSuivant(Game *games); 
-// initialise le début d'une partie 
+// Initialise le debut d'une partie 
 void initialiserPartie(Game *games);
-// verifie si tous les joueurs sont elemines, 1 = tous elimines et 0 = encore actif donc partie continue
+// Verifie si tous les joueurs sont elimines (1 = tous elimines, 0 = encore actif)
 int tousJoueursElimines(Game *games); 
 
-//Créé et affiche le plateau
+// =========================================================================
+// FONCTIONS DE MAP ET PLATEAU GRAPHIQUE (Louis - board.c / notes.c)
+// =========================================================================
+
+// Cree et affiche le plateau
 void creerPlateau(char plateau[34][82]);
 void afficherPlateau(char plateau[34][82]);
-// lance les dés :
+// Lance les des
 int lancerDes();
-//définit les positions initiales
+// Definit les positions initiales des pions
 void initialiserPositions(Game *games);
-//affiche les positions dans le terminal (test)
-//void afficherPositionsJoueurs(Game *games);
-//affiche les pions sur le plateau (positions joueurs);
+// Affiche les pions sur le plateau (positions joueurs)
 void placerJoueurs(Game *games, char plateau[34][82]);
-//deplacer joueur
+// Deplacer un joueur sur la grille
 void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int deplacement);
-//tours des joueurs
+// Gère le tour complet des déplacements des joueurs
 void tourDeplacementJoueurs(Game *games, char plateau[34][82]);
-//collision
-int caseAccessible(char plateau[34][82], int x, int y);
+
+
+
+// Fonctions de configuration des profils (player.c)
+void configurerConfigurationPartie(int *nbHumains, int *nbIAFacile, int *nbIADifficile);
+void configurerJoueursPartie(Game *games, int nbHumains, int nbIAFacile, int nbIADifficile);
+
+// Fonctions d'affichage textuel et interaction menus (ui.c)
+void afficherMenuPrincipal();
+void afficherRegles();
+void afficherInfosTour(Game *games);
+void afficherCartesJoueur(Player *joueur);
+int recupererChoixAction(Player *joueur);
+void choisirElementsHypothese(Card *suspect, Card *arme, Card *piece);
+void afficherResultatHypothese(Player *demandeur, Player *repondeur, Card *carteDejouee);
+void afficherResultatAccusation(int succes, Card s, Card a, Card p);
 
 #endif
