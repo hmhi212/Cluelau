@@ -103,5 +103,6 @@ int recupererChoixAction(Player *joueur);
 void choisirElementsHypothese(Card *suspect, Card *arme, Card *piece);
 void afficherResultatHypothese(Player *demandeur, Player *repondeur, Card *carteDejouee);
 void afficherResultatAccusation(int succes, Card s, Card a, Card p);
+Player *choisirJoueurCible(Game *games);
 
 #endif
