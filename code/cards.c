@@ -6,6 +6,7 @@
 Card suspects[6];
 Card armes[6];
 Card pieces[6];
+char plateau[34][82];
 
 void initialiserCartes(){
     // initialise tous les suspects : 
@@ -157,33 +158,6 @@ int joueurPossedeCarte(Player *joueur, Card carte){
 
 }
 
-Player * trouverJoueurCarte(Game * games, int joueurCourant, Card suspect, Card arme, Card piece){ // joueurCourant est celui qui fais l'hypothese
-    if(games == NULL ){
-        return NULL;
-    }
-
-    for(int i = 0; i < games->nbJoueurs; i++){
-
-        if(i == joueurCourant){
-            continue; // pour ne pas tester le joueur qui fais l'hypothese
-        }
-        if(joueurPossedeCarte(&games->joueurs[i], suspect) == 1){
-            return &games->joueurs[i];
-        }
-
-        if(joueurPossedeCarte(&games->joueurs[i], arme) == 1){
-            return &games->joueurs[i];
-        }
-
-        if(joueurPossedeCarte(&games->joueurs[i], piece) == 1){
-            return &games->joueurs[i];
-        }
-    }
-
-    return NULL;
-
-}
-
 
 Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece){
 
@@ -191,21 +165,31 @@ Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece){
         return NULL;
     }
 
+    Card *cartesPossibles[3];
+    int nbCartesPossibles = 0;
+
     for(int i = 0; i < joueur->nbCartes; i++){
         if(strcmp(joueur->cartes[i].nom, suspect.nom) == 0){
-            return &joueur->cartes[i];
-        }
-        
-        if(strcmp(joueur->cartes[i].nom, arme.nom) == 0){
-            return &joueur->cartes[i];
+            cartesPossibles[nbCartesPossibles] = &joueur->cartes[i];
+            nbCartesPossibles++;
         }
 
-        if(strcmp(joueur->cartes[i].nom, piece.nom) == 0){
-            return &joueur->cartes[i];
+        else if(strcmp(joueur->cartes[i].nom, arme.nom) == 0){
+            cartesPossibles[nbCartesPossibles] = &joueur->cartes[i];
+            nbCartesPossibles++;
+        }
+
+        else if(strcmp(joueur->cartes[i].nom, piece.nom) == 0){
+            cartesPossibles[nbCartesPossibles] = &joueur->cartes[i];
+            nbCartesPossibles++;
         }
     }
 
-    return NULL;
+    if(nbCartesPossibles == 0){
+        return NULL;
+    }
+
+    return cartesPossibles[0];
 }
 
 int accusationFinale(Game *games, Card suspect, Card arme, Card piece){
@@ -236,24 +220,12 @@ int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme
     }
 }
 
-Card * faireHypothese(Game *games, int joueurCourant, Card suspect, Card arme, Card piece){
-    if(games == NULL){
+Card * faireHypothese(Player *joueurCible, Card suspect, Card arme, Card piece){
+    if(joueurCible == NULL){
         return NULL;
     }
 
-    Player * joueurTrouve;
-
-    joueurTrouve = trouverJoueurCarte(games, joueurCourant, suspect, arme, piece);
-
-    if(joueurTrouve == NULL){
-        return NULL; // personne n'a les cartes
-    }
-
-    else{
-        Card *carteRevelee;
-        carteRevelee = revelerCarte(joueurTrouve, suspect, arme, piece);
-        return carteRevelee;
-    }
+    return releverCarte(joueurCible, suspect, arme, piece);
 }   
 
 
@@ -298,32 +270,74 @@ int tousJoueursElimines(Game *games){
 }
 
 
+void boucleJeu(Game *games){
 
-
-
-
-
-
-
-
-/*void boucleJeu(Game * games){
     if(games == NULL){
-        return ;
+        return;
     }
+
+    creerPlateau(plateau);
+    initialiserPositions(games);
+    placerJoueurs(games, plateau);
+    initialiserPieces(games);
 
     int partieFinie = 0;
 
     while(partieFinie == 0){
-        Player * joueur = &games->joueurs[games->joueurCourant];
+        Player *joueur = &games->joueurs[games->joueurCourant];
 
         if(joueur->elimine == 1){
+            joueurSuivant(games);
             continue;
         }
 
-        // joue un tour : hypothese ou accusation 
+        afficherInfosTour(games);
 
+        int deplacement = lancerDes();
 
+        deplacerJoueur(games,plateau,games->joueurCourant,deplacement);
 
+        int dansPiece = joueurDansPiece(games, joueur);
+        int choix = recupererChoixAction(joueur);
+        if(choix == 1 && dansPiece != -1){
+
+            Card suspect;
+            Card arme;
+            Card piece;
+
+            choisirElementsHypothese(
+                &suspect,
+                &arme,
+                &piece
+            );
+
+            Player *joueurCible = choisirJoueurCible(games);
+            Card *carteRevelee = faireHypothese(joueurCible, suspect, arme, piece);
+
+            afficherResultatHypothese(joueur, joueurCible, carteRevelee );
+        }
+
+        else if(choix == 2){
+
+            Card suspect;
+            Card arme;
+            Card piece;
+
+            choisirElementsHypothese(&suspect,&arme,&piece);
+
+            int succes = veridierVictoireDefaite(games, joueur, suspect, arme, piece);
+
+            afficherResultatAccusation(succes,suspect,arme,piece);
+
+            if(succes == 1){
+                partieFinie = 1;
+            }
+        }
+
+        if(tousJoueursElimines(games) == 1){
+            partieFinie = 1;
+        }
+
+        joueurSuivant(games);
     }
-}*/
-
+}

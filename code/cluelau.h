@@ -1,9 +1,6 @@
 #ifndef CLUELAU_H
 #define CLUELAU_H
 
-// =========================================================================
-// STRUCTURES DE DONNÉES DE BASE (Logique Amal & Louis)
-// =========================================================================
 
 typedef struct {
     char nom[50]; 
@@ -38,9 +35,6 @@ typedef struct {
     Card deck[18];
 } Game;
 
-// =========================================================================
-// FONCTIONS DE LOGIQUE ET DE CARTES (Amal - cards.c / game.c)
-// =========================================================================
 
 // Initialise toutes les cartes du jeu donc suspects, armes et pieces
 void initialiserCartes();
@@ -60,18 +54,17 @@ int accusationFinale(Game *games, Card suspect, Card arme, Card piece);
 int veridierVictoireDefaite(Game *games, Player *joueur, Card suspect, Card arme, Card piece);
 // Gere le deroulement principal de la partie
 void boucleJeu(Game *games);
-// Gere une hypothese et retourne la carte revelee
-Card *faireHypothese(Game *games, int joueurCourant, Card suspects, Card arme, Card piece);
+//Verifie si le joueur cible peut repondre a l’hypothese et retourne une carte revelee
+Card *faireHypothese(Player *joueurCible, Card suspects, Card arme, Card piece);
 // Passer au joueur suivant
 void joueurSuivant(Game *games); 
 // Initialise le debut d'une partie 
 void initialiserPartie(Game *games);
 // Verifie si tous les joueurs sont elimines (1 = tous elimines, 0 = encore actif)
 int tousJoueursElimines(Game *games); 
+// Retourne une carte que le joueur peut reveler pour repondre a l’hypothese
+Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece);
 
-// =========================================================================
-// FONCTIONS DE MAP ET PLATEAU GRAPHIQUE (Louis - board.c / notes.c)
-// =========================================================================
 
 // Cree et affiche le plateau
 void creerPlateau(char plateau[34][82]);
@@ -86,6 +79,14 @@ void placerJoueurs(Game *games, char plateau[34][82]);
 void deplacerJoueur(Game *games, char plateau[34][82], int joueurIndex, int deplacement);
 // Gère le tour complet des déplacements des joueurs
 void tourDeplacementJoueurs(Game *games, char plateau[34][82]);
+//collision
+int caseAccessible(char plateau[34][82], int x, int y);
+
+//initialiser les pièces
+void initialiserPieces(Game *games);
+//vérifie si le joueur est dans la pièce
+int joueurDansPiece(Game *games, Player *joueur);
+
 
 
 
