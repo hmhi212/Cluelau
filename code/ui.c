@@ -177,11 +177,36 @@ void afficherResultatAccusation(int succes, Card s, Card a, Card p) {
     printf("Votre choix : ");
    
 
-    
+
     int selection = saisirChoixUI(1, compteurOptions - 1);
 
    
     int indexJoueurCible = choixValides[selection];
 
     return &games->joueurs[indexJoueurCible];
+}
+
+Card *choisirCarteAReveler(Player *joueur,Card *cartesPossibles[],int nbCartesPossibles){
+
+    if(joueur == NULL || nbCartesPossibles <= 0){
+        return NULL;
+    }
+
+    printf("\n--- CHOIX DE LA CARTE A REVELER ---\n");
+
+    for(int i = 0; i < nbCartesPossibles; i++){
+
+        printf(
+            "%d. %s\n",
+            i + 1,
+            cartesPossibles[i]->nom
+        );
+    }
+
+    printf("Choisissez une carte : ");
+
+    int choix =
+        saisirChoixUI(1, nbCartesPossibles);
+
+    return cartesPossibles[choix - 1];
 }

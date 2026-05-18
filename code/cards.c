@@ -189,7 +189,11 @@ Card *revelerCarte(Player *joueur, Card suspect, Card arme, Card piece){
         return NULL;
     }
 
-    return cartesPossibles[0];
+    if(nbCartesPossibles == 1){
+        return cartesPossibles[0];
+    }
+
+    return choisirCarteAReveler(joueur,cartesPossibles,nbCartesPossibles);
 }
 
 int accusationFinale(Game *games, Card suspect, Card arme, Card piece){
